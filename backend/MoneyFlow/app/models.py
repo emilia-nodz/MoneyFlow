@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    id = models.AutoField(primary_key=True),
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
 
     class Meta:
@@ -14,10 +14,10 @@ class Category(models.Model):
         return self.name
 
 class Income(models.Model):
-    id = models.AutoField(primary_key=True),
-    amount = models.DecimalField(decimal_places=2),
-    date = models.DateField(),
-    description = models.CharField(max_length=500)
+    id = models.AutoField(primary_key=True)
+    amount = models.DecimalField(max_digits = 20, decimal_places=2)
+    date = models.DateField()
+    description = models.CharField(max_length=500, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class Meta:
@@ -26,13 +26,13 @@ class Income(models.Model):
         ordering = ['id']  
 
     def __str__(self):
-        return self.amount
+        return str(self.amount)
 
 class Expense(models.Model):
-    id = models.AutoField(primary_key=True),
-    amount = models.DecimalField(decimal_places=2),
-    date = models.DateField(),
-    description = models.CharField(max_length=500)
+    id = models.AutoField(primary_key=True)
+    amount = models.DecimalField(max_digits = 20,decimal_places=2)
+    date = models.DateField()
+    description = models.CharField(max_length=500, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class Meta:
@@ -41,5 +41,5 @@ class Expense(models.Model):
         ordering = ['id']  
 
     def __str__(self):
-        return self.amount
+        return str(self.amount)
 

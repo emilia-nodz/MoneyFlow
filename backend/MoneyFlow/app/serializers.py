@@ -7,30 +7,22 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class IncomeSerializer(serializers.ModelSerializer):
-    category = serializers.PrimaryKeyRelatedField(
-        many=True,
+    category = CategorySerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(),
+        source='category',
         write_only=True
-    )
-    category = CategorySerializer(
-        many=True,
-        source='categories',
-        read_only=True
     )
     class Meta:
         model = Income
         fields = '__all__'
 
 class ExpenseSerializer(serializers.ModelSerializer):
-    category = serializers.PrimaryKeyRelatedField(
-        many=True,
+    category = CategorySerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(),
+        source='category',
         write_only=True
-    )
-    category = CategorySerializer(
-        many=True,
-        source='categories',
-        read_only=True
     )
     class Meta:
         model = Expense
