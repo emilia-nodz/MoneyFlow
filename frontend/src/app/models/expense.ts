@@ -5,6 +5,6 @@ export interface Expense {
     amount: number,
     date: Date,
     description: string,
-    category: Category,
-    category_id: number
+    category?: Category,
+    category_id?: number
 }
