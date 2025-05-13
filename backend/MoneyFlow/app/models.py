@@ -12,13 +12,26 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+        
+class Source(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = "Source"
+        verbose_name_plural = "Sources"  
+        ordering = ['name']  
+
+    def __str__(self):
+        return self.name
+
 
 class Income(models.Model):
     id = models.AutoField(primary_key=True)
     amount = models.DecimalField(max_digits = 20, decimal_places=2)
     date = models.DateField()
     description = models.CharField(max_length=500, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    source = models.ForeignKey(Source, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Income"  
@@ -33,7 +46,7 @@ class Expense(models.Model):
     amount = models.DecimalField(max_digits = 20,decimal_places=2)
     date = models.DateField()
     description = models.CharField(max_length=500, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = "Expense"  

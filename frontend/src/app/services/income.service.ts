@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Income } from '../models/income';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -9,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class IncomeService {
 
-  private apiUrl = environment.apiUrl + "income";
+  private apiUrl = "http://localhost:8000/income/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,7 +22,7 @@ export class IncomeService {
   }
 
   getIncomeById(id: number): Observable<Income> {
-    return this.httpClient.get<Income>(`${this.apiUrl}/${id}/`).pipe(
+    return this.httpClient.get<Income>(`${this.apiUrl}${id}/`).pipe(
       catchError(error => {
         console.error('Error getting income:', error);
         return throwError(() => new Error('Error getting income'));
@@ -36,7 +35,7 @@ export class IncomeService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this.httpClient.post<Income>(this.apiUrl+"/", income, httpOptions).pipe(
+    return this.httpClient.post<Income>(this.apiUrl, income, httpOptions).pipe(
       catchError(error => {
         console.error('Error adding income:', error);
         return throwError(() => new Error('Error adding income'));
@@ -45,7 +44,7 @@ export class IncomeService {
   }
 
   deleteIncome(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}/`).pipe(
+    return this.httpClient.delete<void>(`${this.apiUrl}${id}/`).pipe(
       catchError(error => {
         console.error('Error removing income:', error);
         return throwError(() => new Error('Error removing income'));
@@ -54,7 +53,7 @@ export class IncomeService {
   }
 
   updateIncome(income: Income): Observable<Income> {
-    return this.httpClient.patch<Income>(`${this.apiUrl}/${income.id}/`, income).pipe(
+    return this.httpClient.patch<Income>(`${this.apiUrl}${income.id}/`, income).pipe(
       catchError(error => {
         console.error('Error updating income:', error);
         return throwError(() => new Error('Error updating income'));

@@ -8,6 +8,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
+class SourceViewSet(viewsets.ModelViewSet):
+    serializer_class = SourceSerializer
+    queryset = Source.objects.all()
+
 class IncomeViewSet(viewsets.ModelViewSet):
     serializer_class = IncomeSerializer
     queryset = Income.objects.all()

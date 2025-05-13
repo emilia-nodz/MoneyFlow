@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { ExpenseService } from './expense.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { Expense } from '../models/expense';
 
 describe('ExpenseService', () => {
@@ -21,11 +20,12 @@ describe('ExpenseService', () => {
     httpTesting = TestBed.inject(HttpTestingController);
   });
 
-  const apiUrl = environment.apiUrl;
+  const apiUrl = "http://localhost:8000/"
 
   const initialData: Expense[] = [
         {
           id: 1,
+
           amount: 200.00,
           date: new Date,
           description: 'two hundred',
@@ -53,7 +53,7 @@ describe('ExpenseService', () => {
     service.getAllExpenses().subscribe(expenses => {
       expect(expenses.length).toBeGreaterThan(0);
     });
-    const apiReq = httpTesting.expectOne(apiUrl + 'expense');
+    const apiReq = httpTesting.expectOne(apiUrl + 'expense/');
     expect(apiReq.request.method).toBe("GET");
     apiReq.flush(initialData);
   });

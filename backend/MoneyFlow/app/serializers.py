@@ -6,11 +6,16 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
 
+class SourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Source
+        fields = '__all__'
+
 class IncomeSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-    category_id = serializers.PrimaryKeyRelatedField(
-        queryset=Category.objects.all(),
-        source='category',
+    source = SourceSerializer(read_only=True)
+    source_id = serializers.PrimaryKeyRelatedField(
+        queryset=Source.objects.all(),
+        source='source',
         write_only=True
     )
     class Meta:

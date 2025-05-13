@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Expense } from '../models/expense';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -9,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class ExpenseService {
 
-  private apiUrl = environment.apiUrl + "expense";
+  private apiUrl = "http://localhost:8000/expense/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,7 +22,7 @@ export class ExpenseService {
   }
 
   getExpenseById(id: number): Observable<Expense> {
-    return this.httpClient.get<Expense>(`${this.apiUrl}/${id}/`).pipe(
+    return this.httpClient.get<Expense>(`${this.apiUrl}${id}/`).pipe(
       catchError(error => {
         console.error('Error getting expense:', error);
         return throwError(() => new Error('Error getting expenses'));
@@ -36,7 +35,7 @@ export class ExpenseService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this.httpClient.post<Expense>(this.apiUrl+"/", expense, httpOptions).pipe(
+    return this.httpClient.post<Expense>(this.apiUrl, expense, httpOptions).pipe(
       catchError(error => {
         console.error('Error adding expense:', error);
         return throwError(() => new Error('Error adding expense'));
@@ -45,7 +44,7 @@ export class ExpenseService {
   }
 
   deleteExpense(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}/`).pipe(
+    return this.httpClient.delete<void>(`${this.apiUrl}${id}/`).pipe(
       catchError(error => {
         console.error('Error removing expense:', error);
         return throwError(() => new Error('Error removing expense'));
@@ -54,7 +53,7 @@ export class ExpenseService {
   }
 
   updateExpense(expense: Expense): Observable<Expense> {
-    return this.httpClient.patch<Expense>(`${this.apiUrl}/${expense.id}/`, expense).pipe(
+    return this.httpClient.patch<Expense>(`${this.apiUrl}${expense.id}/`, expense).pipe(
       catchError(error => {
         console.error('Error updating expense:', error);
         return throwError(() => new Error('Error updating expense'));

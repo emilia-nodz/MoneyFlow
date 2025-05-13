@@ -1,0 +1,7 @@
+@for (ex of expenses; track $index) {
+    <li>{{ex.amount}} {{ex.description}} {{ex.date | date:"longDate" }} 
+        @for(cat of categories; track $index) {
+            {{cat.name}}
+        }
+    </li>
+}

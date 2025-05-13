@@ -1,10 +1,10 @@
-import { Category } from "./category";
+import { Source } from "./source";
 
 export interface Income {
     id: number,
     amount: number,
     date: Date,
     description: string,
-    category?: Category,
-    category_id?: number
+    source?: Source,
+    source_id?: number
 }

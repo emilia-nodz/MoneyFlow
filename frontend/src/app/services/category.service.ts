@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Category } from '../models/category';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -9,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class CategoryService {
 
-  private apiUrl = environment.apiUrl + "category";
+  private apiUrl = "http://localhost:8000/category/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +25,7 @@ export class CategoryService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this.httpClient.post<Category>(this.apiUrl+"/", category, httpOptions).pipe(
+    return this.httpClient.post<Category>(this.apiUrl, category, httpOptions).pipe(
       catchError(error => {
         console.error('Error adding category:', error);
         return throwError(() => new Error('Error adding category'));
@@ -35,7 +34,7 @@ export class CategoryService {
   }
 
   deleteCategory(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}/`).pipe(
+    return this.httpClient.delete<void>(`${this.apiUrl}${id}/`).pipe(
       catchError(error => {
         console.error('Error removing category:', error);
         return throwError(() => new Error('Error removing category'));
@@ -44,7 +43,7 @@ export class CategoryService {
   }
 
   updateCategory(category: Category): Observable<Category> {
-    return this.httpClient.patch<Category>(`${this.apiUrl}/${category.id}/`, category).pipe(
+    return this.httpClient.patch<Category>(`${this.apiUrl}${category.id}/`, category).pipe(
       catchError(error => {
         console.error('Error updating category:', error);
         return throwError(() => new Error('Error updating category'));

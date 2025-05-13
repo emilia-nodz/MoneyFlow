@@ -4,7 +4,6 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { IncomeService } from './income.service';
 import { Income } from '../models/income';
 import { provideHttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 
 describe('IncomeService', () => {
   let service: IncomeService;
@@ -21,7 +20,7 @@ describe('IncomeService', () => {
     httpTesting = TestBed.inject(HttpTestingController);
   });
 
-  const apiUrl = environment.apiUrl;
+  const apiUrl = "http://localhost:8000/"
 
   const initialData: Income[] = [
         {
@@ -29,7 +28,7 @@ describe('IncomeService', () => {
           amount: 200.00,
           date: new Date,
           description: 'two hundred',
-          category_id: 1
+          source_id: 1
         },
         {
           id: 2,
@@ -53,7 +52,7 @@ describe('IncomeService', () => {
     service.getAllIncomes().subscribe(incomes => {
       expect(incomes.length).toBeGreaterThan(0);
     });
-    const apiReq = httpTesting.expectOne(apiUrl + 'income');
+    const apiReq = httpTesting.expectOne(apiUrl + 'income/');
     expect(apiReq.request.method).toBe("GET");
     apiReq.flush(initialData);
   });
@@ -73,25 +72,25 @@ describe('IncomeService', () => {
       amount: 3999.79,
       date: new Date,
       description: 'Paycheck finally!!',
-      category_id: 2
+      source_id: 2
     }).subscribe(income => {
       expect(income).toBeTruthy();
       expect(income.amount).toBe(3999.79);
       expect(income.description).toBe('Paycheck finally!!');
-      expect(income.category_id).toBe(2);
+      expect(income.source_id).toBe(2);
     });
     const apiReq = httpTesting.expectOne(apiUrl + "income/");
     expect(apiReq.request.method).toBe("POST");
     expect(apiReq.request.body.amount).toBe(3999.79);
     expect(apiReq.request.body.description).toBe('Paycheck finally!!');
-    expect(apiReq.request.body.category_id).toBe(2);
+    expect(apiReq.request.body.source_id).toBe(2);
 
     apiReq.flush({
       id:3,
       amount: 3999.79,
       date: new Date,
       description: 'Paycheck finally!!',
-      category_id: 2
+      source_id: 2
     });
   });
 
@@ -110,22 +109,22 @@ describe('IncomeService', () => {
       amount: 300.00,
       date: new Date,
       description: 'two hundred',
-      category_id: 5
+      source_id: 5
     }).subscribe(income => {
       expect(income).toBeTruthy();
       expect(income.amount).toBe(300.00);
-      expect(income.category_id).toEqual(5);
+      expect(income.source_id).toEqual(5);
     });
     const apiReq = httpTesting.expectOne(apiUrl + "income/" + incomeId + "/");
     expect(apiReq.request.method).toBe("PATCH");
     expect(apiReq.request.body.amount).toBe(300.00);
-    expect(apiReq.request.body.category_id).toEqual(5);
+    expect(apiReq.request.body.source_id).toEqual(5);
     apiReq.flush({
       id: 1,
       amount: 300.00,
       date: new Date,
       description: 'two hundred',
-      category_id: 5
+      source_id: 5
     });
   });
 });

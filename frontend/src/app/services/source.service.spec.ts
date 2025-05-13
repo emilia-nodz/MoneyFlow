@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CategoryService } from './category.service';
+import { SourceService } from './source.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { Category } from '../models/category';
+import { Source } from '../models/source';
 
-describe('CategoryService', () => {
-  let service: CategoryService;
+describe('SourceService', () => {
+  let service: SourceService;
   let httpTesting: HttpTestingController;
 
   beforeEach(() => {
@@ -16,14 +16,13 @@ describe('CategoryService', () => {
         provideHttpClientTesting()]
     });
     
-    service = TestBed.inject(CategoryService);
+    service = TestBed.inject(SourceService);
     httpTesting = TestBed.inject(HttpTestingController);
   });
 
   const apiUrl = "http://localhost:8000/";
 
-
-  const initialData: Category[] = [
+  const initialData: Source[] = [
         {
           id: 1,
           name: "food"
@@ -34,7 +33,7 @@ describe('CategoryService', () => {
         }
       ];
 
-  const categoryId = 1;
+  const sourceId = 1;
 
   afterEach(() => {
     httpTesting.verify();
@@ -48,20 +47,20 @@ describe('CategoryService', () => {
     service.getAllCategories().subscribe(categories => {
       expect(categories.length).toBeGreaterThan(0);
     });
-    const apiReq = httpTesting.expectOne(apiUrl + 'category/');
+    const apiReq = httpTesting.expectOne(apiUrl + 'source/');
     expect(apiReq.request.method).toBe("GET");
     apiReq.flush(initialData);
   });
 
-  it('should insert a category', () => {
-    service.insertCategory({
+  it('should insert a source', () => {
+    service.insertSource({
       id:3,
       name: "work"
-    }).subscribe(category => {
-      expect(category).toBeTruthy();
-      expect(category.name).toBe("work");
+    }).subscribe(source => {
+      expect(source).toBeTruthy();
+      expect(source.name).toBe("work");
     });
-    const apiReq = httpTesting.expectOne(apiUrl + "category/");
+    const apiReq = httpTesting.expectOne(apiUrl + "source/");
     expect(apiReq.request.method).toBe("POST");
     expect(apiReq.request.body.name).toBe("work");
     apiReq.flush({
@@ -70,24 +69,24 @@ describe('CategoryService', () => {
     });
   });
 
-  it('should update delete category by id', () => {
-    service.deleteCategory(categoryId).subscribe(category => {
-      expect(category).toBeNull();
+  it('should update delete source by id', () => {
+    service.deleteSource(sourceId).subscribe(source => {
+      expect(source).toBeNull();
     });
-    const apiReq = httpTesting.expectOne(apiUrl + "category/" + categoryId + "/");
+    const apiReq = httpTesting.expectOne(apiUrl + "source/" + sourceId + "/");
     expect(apiReq.request.method).toBe("DELETE");
     apiReq.flush(null);
   });
 
-  it('should update existing category by id', () => {
-    service.updateCategory({
+  it('should update existing source by id', () => {
+    service.updateSource({
       id: 1,
       name: "transport"
-    }).subscribe(category => {
-      expect(category).toBeTruthy();
-      expect(category.name).toBe("transport");
+    }).subscribe(source => {
+      expect(source).toBeTruthy();
+      expect(source.name).toBe("transport");
     });
-    const apiReq = httpTesting.expectOne(apiUrl + "category/" + categoryId + "/");
+    const apiReq = httpTesting.expectOne(apiUrl + "source/" + sourceId + "/");
     expect(apiReq.request.method).toBe("PATCH");
     expect(apiReq.request.body.name).toBe("transport");
     apiReq.flush({
