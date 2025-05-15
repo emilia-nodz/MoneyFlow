@@ -1,7 +1,30 @@
-@for (ex of expenses; track $index) {
-    <li>{{ex.amount}} {{ex.description}} {{ex.date | date:"longDate" }} 
-        @for(cat of categories; track $index) {
-            {{cat.name}}
-        }
-    </li>
-}
+<mat-tab-group dynamicHeight class="mx-auto p-5" style="width: 1000px;" >
+    <mat-tab label="Expenses list" >
+        <div  class="p-3" >
+            @for (ex of expenses; track $index) {
+                <div id="click" class="card mb-3"  (click)="currentExpenseCategory(ex)" >
+                    <div class="card-header">
+                        {{ex.date | date:"longDate" }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ex.amount | currency:"EUR" }} </h5>
+                        <p class="card-text">{{ex.description}} </p>
+                        @if(currentExpenseCategory(ex)) {
+                            <h6> {{category_name}}</h6>
+                        }
+                        @else {
+                            <p>No categories found.</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Add expense">
+        <div class=" mat-elevation-z4">
+          Large content
+        </div>
+      </mat-tab>
+</mat-tab-group>
+    
