@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ExpenseFormComponent } from "../expense-form/expense-form.component";
 
 @Component({
   selector: 'app-expenses-list',
-  imports: [CommonModule, MatTabsModule],
+  imports: [CommonModule, MatTabsModule, ExpenseFormComponent],
   templateUrl: './expenses-list.component.html',
   styleUrl: './expenses-list.component.css'
 })
@@ -22,14 +23,14 @@ export class ExpensesListComponent{
     private categoryService: CategoryService
   ) {
     this.expensesService.getAllExpenses().subscribe(data => {
-      this.expenses = data;
+      this.expenses = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     });
     
     this.categoryService.getAllCategories().subscribe(data => {
       this.categories = data;
     });
   }
-   
+     
   currentExpenseCategory(expense: Expense): boolean {
     if (!expense.category) {
       return false;
@@ -43,5 +44,6 @@ export class ExpensesListComponent{
 
     return true;
   }
+
 
 }

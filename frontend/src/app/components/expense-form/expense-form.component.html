@@ -1,0 +1,40 @@
+<div class="card border-0">
+    <div class="card-body">
+      <form [formGroup]="formModel" (ngSubmit)="submitForm()" class="row g-3">
+        <div class="col-md-6">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="amount" formControlName="amount">
+        </div>
+
+        <div class="col-md-5">
+          <label for="picker" class="form-label">Date</label>
+          <input class="form-control" matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+
+        <div class="col-md-1">
+          <br>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        </div>
+        
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+        </div>
+
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">Category</label>
+          <select id="inputState" class="form-select" formControlName="category">
+            @for(cat of categories; track $index) {
+              <option [value]="cat.id">{{cat.name}}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" style="color:#f8f9fa;">Add</button>
+        </div>
+      
+      </form>
+    </div>
+  </div>

@@ -1,7 +1,7 @@
 import { Category } from "./category";
 
 export interface Expense {
-    id: number,
+    id?: number,
     amount: number,
     date: Date,
     description: string,

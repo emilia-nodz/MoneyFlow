@@ -1,3 +1,7 @@
 .mat-tab-header{
     background-color: #50f84b;
 }
+
+.mat-tab-header-active-label-text-color {
+    color:#50f84b;
+}
