@@ -43,8 +43,8 @@ export class IncomeService {
     );
   }
 
-  deleteIncome(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}${id}/`).pipe(
+  deleteIncome(incomeToDelete: Income): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}${incomeToDelete.id}/`).pipe(
       catchError(error => {
         console.error('Error removing income:', error);
         return throwError(() => new Error('Error removing income'));

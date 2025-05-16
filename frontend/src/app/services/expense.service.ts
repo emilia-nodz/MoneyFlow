@@ -30,7 +30,6 @@ export class ExpenseService {
     );;
   }
 
-
   insertExpense(expense: Expense): Observable<Expense> {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -43,8 +42,8 @@ export class ExpenseService {
     );
   }
 
-  deleteExpense(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}${id}/`).pipe(
+  deleteExpense(expenseToDelete: Expense): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}${expenseToDelete.id}/`).pipe(
       catchError(error => {
         console.error('Error removing expense:', error);
         return throwError(() => new Error('Error removing expense'));

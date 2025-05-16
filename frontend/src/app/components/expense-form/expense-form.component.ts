@@ -25,6 +25,7 @@ export class ExpenseFormComponent {
   formModel: FormGroup;
   categories: Category[] = [];
   expenses: Expense[] = [];
+  successfullyAdded: boolean = false;
   
   constructor (
     private formBuilder: FormBuilder, 
@@ -50,7 +51,7 @@ export class ExpenseFormComponent {
   addExpense(category_id: number, amount: number, date: Date, description: string): void {
     const newExpense: Expense = {category_id, amount, date, description} as Expense;
     this.expenseService.insertExpense(newExpense).subscribe(expense => {
-      console.log(expense);
+      this.successfullyAdded = true;
     });
   }
 

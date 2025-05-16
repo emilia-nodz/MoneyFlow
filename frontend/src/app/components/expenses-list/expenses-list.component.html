@@ -3,17 +3,27 @@
         <div  class="p-3" >
             @for (ex of expenses; track $index) {
                 <div class="card mb-3" >
-                    <div class="card-header">
-                        {{ex.date | date:"longDate" }}
+                    <div class="card-header d-flex justify-content-between">
+                        <div>{{ex.date | date }}</div>
+                        <div class="dropdown">
+                            <button class="btn p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <mat-icon aria-hidden="false" aria-label="More Horiz" fontIcon="more_horiz"></mat-icon>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><button class="dropdown-item btn border-0" (click)="openDialog('0ms', '0ms', ex)">Delete</button></li>
+                              <li><a class="dropdown-item" href="">Edit</a></li>
+                            </ul>
+                        </div> 
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-danger">{{ex.amount | currency:"EUR" }} </h5>
+                       
+                        <h5 class="card-title text-danger">{{ex.amount | currency: 'EUR':'symbol' }} </h5>
                         <p class="card-text">{{ex.description}} </p>
                         @if(currentExpenseCategory(ex)) {
                             <h6> {{category_name}}</h6>
                         }
                         @else {
-                            <p>No categories found.</p>
+                            <h6>No categories found.</h6>
                         }
                     </div>
                 </div>
