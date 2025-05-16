@@ -50,13 +50,6 @@ export class ExpenseFormComponent implements OnChanges{
       description: ['', Validators.required]
     });
 
-    if(this.index) {
-      this.expenseService.getExpenseById(this.index).subscribe(expense => {
-        if(expense) {
-          this.formModel.patchValue(expense);
-        }
-      });
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -76,10 +69,11 @@ export class ExpenseFormComponent implements OnChanges{
   }
 
   editExpense(category_id: number, amount: number, date: Date, description: string): void {
-    const editedExpense: Expense = {category_id, amount, date, description} as Expense;
+    const editedExpense: Expense = {id: this.index,category_id, amount, date, description} as Expense;
     this.expenseService.updateExpense(editedExpense).subscribe(() => {
       this.successfullyAdded = true;
-      this.action = "updated"
+      this.action = "updated";
+      location.reload();
     })
   }
 

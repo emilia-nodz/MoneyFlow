@@ -37,8 +37,6 @@ export class DialogEditFormComponent {
   readonly incomeData = inject<Income>(MAT_DIALOG_DATA);
 
   constructor(
-    private expenseService: ExpenseService,
-    private incomeService: IncomeService
   ) {
     console.log('Dialog received data:', this.expenseData);
     this.chooseTransactionToEdit();

@@ -1,4 +1,8 @@
-<h2 mat-dialog-title>Edit transaction</h2>
+
+<div class="card-header d-flex justify-content-between">
+    <h2 mat-dialog-title>Edit transaction</h2>
+    <button mat-dialog-close type="button" class="btn-close border-0 mt-4 mx-4" aria-label="Close"></button>
+</div>
 <mat-dialog-content >
     @if(transactionToEdit === true) {
         <app-expense-form [index]="expenseData.id"></app-expense-form>
