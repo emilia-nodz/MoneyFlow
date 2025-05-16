@@ -3,7 +3,7 @@
     
     @if(successfullyAdded === true) {
       <div class="alert alert-info" role="alert">
-        Expense added successfully!
+        Expense {{action}} successfully!
       </div>
     }
 
@@ -20,17 +20,16 @@
         </small>
       </div>
 
-      <div class="col-md-5">
+      <div class="col-md-6">
         <label for="picker" class="form-label">Date</label>
-        <input class="form-control" matInput [matDatepicker]="picker" formControlName="date">
-        <mat-datepicker #picker></mat-datepicker>
+        <input class="form-control" type="date"  formControlName="date">
+        <small class="text-danger">
+        @if(formModel.controls['date'].invalid  && formModel.controls['date'].touched) {
+          Date is required
+        }
+      </small>
       </div>
 
-      <div class="col-md-1">
-        <br>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      </div>
-        
       <div class="col-12">
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>

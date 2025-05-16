@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
@@ -21,11 +21,14 @@ import { Router } from '@angular/router';
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
 })
-export class ExpenseFormComponent {
+export class ExpenseFormComponent implements OnChanges{
   formModel: FormGroup;
   categories: Category[] = [];
   expenses: Expense[] = [];
   successfullyAdded: boolean = false;
+  action: string = "";
+
+  @Input() index: number | undefined;
   
   constructor (
     private formBuilder: FormBuilder, 
@@ -46,23 +49,55 @@ export class ExpenseFormComponent {
       category:['',Validators.required],
       description: ['', Validators.required]
     });
+
+    if(this.index) {
+      this.expenseService.getExpenseById(this.index).subscribe(expense => {
+        if(expense) {
+          this.formModel.patchValue(expense);
+        }
+      });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['index'] && this.index !== undefined) {
+      this.expenseService.getExpenseById(this.index).subscribe(expense => {
+        this.formModel.patchValue(expense);
+      });
+    }
   }
 
   addExpense(category_id: number, amount: number, date: Date, description: string): void {
     const newExpense: Expense = {category_id, amount, date, description} as Expense;
-    this.expenseService.insertExpense(newExpense).subscribe(expense => {
+    this.expenseService.insertExpense(newExpense).subscribe(() => {
       this.successfullyAdded = true;
+      this.action = "added";
     });
   }
 
-  submitForm(): void {
-    const formattedDate = this.formModel.value.date.toISOString().slice(0, 10);
+  editExpense(category_id: number, amount: number, date: Date, description: string): void {
+    const editedExpense: Expense = {category_id, amount, date, description} as Expense;
+    this.expenseService.updateExpense(editedExpense).subscribe(() => {
+      this.successfullyAdded = true;
+      this.action = "updated"
+    })
+  }
 
-    this.addExpense(
-      this.formModel.value.category,
-      this.formModel.value.amount,
-      formattedDate,
-      this.formModel.value.description
-    )
+  submitForm(): void {
+    if(this.index) {
+      this.editExpense(
+        this.formModel.value.category,
+        this.formModel.value.amount,
+        this.formModel.value.date,
+        this.formModel.value.description
+      );
+    } else {
+      this.addExpense(
+        this.formModel.value.category,
+        this.formModel.value.amount,
+        this.formModel.value.date,
+        this.formModel.value.description
+      );
+    }
   }
 }

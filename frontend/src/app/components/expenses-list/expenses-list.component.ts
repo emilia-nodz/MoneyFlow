@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Income } from '../../models/income';
+import { DialogEditFormComponent } from '../dialog-edit-form/dialog-edit-form.component';
 
 @Component({
   selector: 'app-expenses-list',
@@ -57,6 +58,15 @@ export class ExpensesListComponent{
       enterAnimationDuration,
       exitAnimationDuration,
       data: toDelete
+    });
+  }
+
+  openDialogToEdit(enterAnimationDuration: string, exitAnimationDuration: string, toEdit: Expense | Income): void {
+    this.dialog.open(DialogEditFormComponent, {
+      width: '500px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: toEdit
     });
 
   }
