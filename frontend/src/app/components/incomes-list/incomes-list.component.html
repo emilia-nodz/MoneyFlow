@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="card-body">
                                 
-                                    <h5 class="card-title text-danger">{{income.amount | currency: 'EUR':'symbol' }} </h5>
+                                    <h5 class="card-title text-success">{{income.amount | currency: 'EUR':'symbol' }} </h5>
                                     <p class="card-text">{{income.description}} </p>
                                     @if(currentIncomeSource(income)) {
                                         <h6> {{source_name}}</h6>

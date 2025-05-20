@@ -22,6 +22,7 @@
     "@angular/router": "^19.2.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.6",
+    "chart.js": "^4.4.9",
     "rxjs": "~7.8.0",
     "sass": "^1.88.0",
     "scss": "^0.2.4",
