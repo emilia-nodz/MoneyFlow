@@ -94,11 +94,11 @@ describe('IncomeService', () => {
     });
   });
 
-  it('should update delete income by id', () => {
-    service.deleteIncome(incomeId).subscribe(income => {
+  it('should delete income by id', () => {
+    service.deleteIncome(initialData[0]).subscribe(income => {
       expect(income).toBeNull();
     });
-    const apiReq = httpTesting.expectOne(apiUrl + "income/" + incomeId + "/");
+    const apiReq = httpTesting.expectOne(apiUrl + "income/" + initialData[0].id + "/");
     expect(apiReq.request.method).toBe("DELETE");
     apiReq.flush(null);
   });

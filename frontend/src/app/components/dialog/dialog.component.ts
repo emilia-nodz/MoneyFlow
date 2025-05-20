@@ -30,20 +30,24 @@ import { IncomeService } from '../../services/income.service';
 })
 export class DialogComponent {
   readonly dialogRef = inject(MatDialogRef<DialogComponent>);
-  readonly expenseData = inject<Expense>(MAT_DIALOG_DATA);
-  readonly incomeData = inject<Income>(MAT_DIALOG_DATA);
+  readonly data = inject(MAT_DIALOG_DATA) as Expense | Income;
 
   constructor(
     private expenseService: ExpenseService,
     private incomeService: IncomeService
   ) {}
   
+  isExpense(transaction: Expense | Income): transaction is Expense {
+    return 'category' in transaction;
+  }
+
   deleteTransaction(): void {
-    if(this.expenseData) {
-      this.expenseService.deleteExpense(this.expenseData).subscribe();
-    } else {
-      this.incomeService.deleteIncome(this.incomeData).subscribe();
-    }
+    console.log(this.data)
+    if(this.isExpense(this.data)) {
+      this.expenseService.deleteExpense(this.data).subscribe();
+    } else  {
+      this.incomeService.deleteIncome(this.data).subscribe();
+    } 
     location.reload();
   }
 

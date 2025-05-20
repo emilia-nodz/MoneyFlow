@@ -95,11 +95,11 @@ describe('ExpenseService', () => {
     });
   });
 
-  it('should update delete expense by id', () => {
-    service.deleteExpense(expenseId).subscribe(expense => {
+  it('should delete expense by id', () => {
+    service.deleteExpense(initialData[0]).subscribe(expense => {
       expect(expense).toBeNull();
     });
-    const apiReq = httpTesting.expectOne(apiUrl + "expense/" + expenseId + "/");
+    const apiReq = httpTesting.expectOne(apiUrl + "expense/" + initialData[0].id + "/");
     expect(apiReq.request.method).toBe("DELETE");
     apiReq.flush(null);
   });

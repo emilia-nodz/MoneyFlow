@@ -12,11 +12,11 @@ export class SourceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCategories(): Observable<Source[]> {
+  getAllSources(): Observable<Source[]> {
     return this.httpClient.get<Source[]>(this.apiUrl).pipe(
       catchError(error => {
-        console.error('Error getting categories:', error);
-        return throwError(() => new Error('Error getting categories'));
+        console.error('Error getting sources:', error);
+        return throwError(() => new Error('Error getting sources'));
       })
     );;
   }

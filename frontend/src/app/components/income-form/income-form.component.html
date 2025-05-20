@@ -1,0 +1,58 @@
+<div class="card border-0">
+    <div class="card-body">
+      
+      @if(successfullyAdded === true) {
+        <div class="alert alert-info" role="alert">
+          Income {{action}} successfully!
+        </div>
+      }
+  
+      <form [formGroup]="formModel" (ngSubmit)="submitForm()" class="row g-3">
+        <div class="col-md-6">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" min="0" class="form-control" id="amount" formControlName="amount">
+          <small class="text-danger">
+            @if(formModel.controls['amount'].invalid && formModel.controls['amount'].touched ) {
+              Amount is required
+            } @else if(formModel.controls['amount'].errors?.['min']) {
+              Amount must be greater than 0
+            }
+          </small>
+        </div>
+  
+        <div class="col-md-6">
+          <label for="picker" class="form-label">Date</label>
+          <input class="form-control" type="date"  formControlName="date">
+          <small class="text-danger">
+          @if(formModel.controls['date'].invalid  && formModel.controls['date'].touched) {
+            Date is required
+          }
+        </small>
+        </div>
+  
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+          <small class="text-danger">
+            @if(formModel.controls['description'].invalid && formModel.controls['description'].touched ) {
+              Description is required
+            }
+          </small>
+        </div>
+  
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">Source</label>
+          <select id="inputState" class="form-select" formControlName="source">
+            @for(source of sources; track $index) {
+              <option [value]="source.id">{{source.name}}</option>
+            }
+          </select>
+        </div>
+  
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" style="color:#f8f9fa;" [disabled]="formModel.invalid">Add</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>

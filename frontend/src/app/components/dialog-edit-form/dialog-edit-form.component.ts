@@ -12,9 +12,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Expense } from '../../models/expense';
 import { Income } from '../../models/income';
-import { ExpenseService } from '../../services/expense.service';
-import { IncomeService } from '../../services/income.service';
 import { ExpenseFormComponent } from "../expense-form/expense-form.component";
+import { IncomeFormComponent } from "../income-form/income-form.component";
+
 
 @Component({
   selector: 'app-dialog-edit-form',
@@ -24,7 +24,8 @@ import { ExpenseFormComponent } from "../expense-form/expense-form.component";
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    ExpenseFormComponent
+    ExpenseFormComponent,
+    IncomeFormComponent
 ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dialog-edit-form.component.html',
@@ -33,18 +34,22 @@ import { ExpenseFormComponent } from "../expense-form/expense-form.component";
 export class DialogEditFormComponent {
   readonly dialogRef = inject(MatDialogRef<DialogEditFormComponent>);
   transactionToEdit: boolean | undefined;
-  readonly expenseData = inject<Expense>(MAT_DIALOG_DATA);
-  readonly incomeData = inject<Income>(MAT_DIALOG_DATA);
+  readonly data = inject(MAT_DIALOG_DATA) as Expense | Income;
+
 
   constructor(
   ) {
-    console.log('Dialog received data:', this.expenseData);
+    console.log('Dialog received data:', this.data);
     this.chooseTransactionToEdit();
   }
   
+  isExpense(transaction: Expense | Income): transaction is Expense {
+    return 'category' in transaction;
+  }
+  
   chooseTransactionToEdit(): void {
-    if(this.expenseData) {
-      console.log(this.expenseData.id)
+    console.log(this.data)
+    if(this.isExpense(this.data)) {
       this.transactionToEdit = true;
     } else {
       this.transactionToEdit = false;

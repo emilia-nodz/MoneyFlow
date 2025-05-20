@@ -1,0 +1,40 @@
+<mat-tab-group dynamicHeight class="mx-auto p-5" style="width: 1000px; " >
+    <mat-tab label="Incomes list" >
+        <div  class="p-3" >
+            @for (income of incomes; track $index) {
+                <div class="card mb-3" >
+                    <div class="card-header d-flex justify-content-between">
+                        <div>{{income.date | date }}</div>
+                        <div class="dropdown">
+                            <button class="btn p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <mat-icon aria-hidden="false" aria-label="More Horiz" fontIcon="more_horiz"></mat-icon>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><button class="dropdown-item btn border-0" (click)="openDialog('0ms', '0ms', income)">Delete</button></li>
+                              <li><a class="dropdown-item" (click)="openDialogToEdit('0ms', '0ms', income)">Edit</a></li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="card-body">
+                       
+                        <h5 class="card-title text-danger">{{income.amount | currency: 'EUR':'symbol' }} </h5>
+                        <p class="card-text">{{income.description}} </p>
+                        @if(currentIncomeSource(income)) {
+                            <h6> {{source_name}}</h6>
+                        }
+                        @else {
+                            <h6>No sources found.</h6>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Add income">
+        <div class="px-3">
+          <app-income-form></app-income-form>
+        </div>
+      </mat-tab>
+</mat-tab-group>
+    

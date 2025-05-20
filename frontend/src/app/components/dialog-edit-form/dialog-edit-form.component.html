@@ -5,10 +5,10 @@
 </div>
 <mat-dialog-content >
     @if(transactionToEdit === true) {
-        <app-expense-form [index]="expenseData.id"></app-expense-form>
+        <app-expense-form [index]="data.id"></app-expense-form>
     }
     @else if(transactionToEdit === false) {
-        <!-- <app-income-form></app-income-form> -->
+        <app-income-form [index]="data.id"></app-income-form>
     }
-    @else {Nothing}
+    @else {Nothing to edit}
 </mat-dialog-content>
