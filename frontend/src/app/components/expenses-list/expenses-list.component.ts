@@ -24,6 +24,7 @@ export class ExpensesListComponent{
   expenses: Expense[] = [];
   categories: Category[] = [];
   category_name: String = "";
+  filteredExpenses: Expense[] = [];
 
   constructor(
     private expensesService: ExpenseService,
@@ -31,6 +32,7 @@ export class ExpensesListComponent{
   ) {
     this.expensesService.getAllExpenses().subscribe(data => {
       this.expenses = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      this.filteredExpenses = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     });
     
     this.categoryService.getAllCategories().subscribe(data => {
@@ -68,7 +70,15 @@ export class ExpensesListComponent{
       exitAnimationDuration,
       data: toEdit
     });
+  }
 
+  applyFilter(event: Event): void {
+    let searchTerm = (event.target as HTMLInputElement).value;
+    searchTerm = searchTerm.toLocaleLowerCase();
+
+    this.filteredExpenses = this.expenses.filter(
+      expense => expense.category!.name.toLocaleLowerCase().includes(searchTerm)
+    )
   }
 
 }

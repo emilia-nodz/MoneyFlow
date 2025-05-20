@@ -24,6 +24,7 @@ export class IncomesListComponent{
   incomes: Income[] = [];
   sources: Source[] = [];
   source_name: String = "";
+  filteredIncomes: Income[] = [];
 
   constructor(
     private incomesService: IncomeService,
@@ -31,6 +32,7 @@ export class IncomesListComponent{
   ) {
     this.incomesService.getAllIncomes().subscribe(data => {
       this.incomes = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      this.filteredIncomes = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     });
     
     this.sourceService.getAllSources().subscribe(data => {
@@ -69,7 +71,15 @@ export class IncomesListComponent{
       exitAnimationDuration,
       data: toEdit
     });
+  }
 
+  applyFilter(event: Event): void {
+    let searchTerm = (event.target as HTMLInputElement).value;
+    searchTerm = searchTerm.toLocaleLowerCase();
+
+    this.filteredIncomes = this.incomes.filter(
+      income => income.source!.name.toLocaleLowerCase().includes(searchTerm)
+    )
   }
 
 }

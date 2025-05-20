@@ -1,40 +1,51 @@
-<mat-tab-group dynamicHeight class="mx-auto p-5" style="width: 1000px; " >
-    <mat-tab label="Expenses list" >
-        <div  class="p-3" >
-            @for (ex of expenses; track $index) {
-                <div class="card mb-3" >
-                    <div class="card-header d-flex justify-content-between">
-                        <div>{{ex.date | date }}</div>
-                        <div class="dropdown">
-                            <button class="btn p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <mat-icon aria-hidden="false" aria-label="More Horiz" fontIcon="more_horiz"></mat-icon>
-                            </button>
-                            <ul class="dropdown-menu">
-                              <li><button class="dropdown-item btn border-0" (click)="openDialog('0ms', '0ms', ex)">Delete</button></li>
-                              <li><a class="dropdown-item" (click)="openDialogToEdit('0ms', '0ms', ex)">Edit</a></li>
-                            </ul>
-                        </div> 
-                    </div>
-                    <div class="card-body">
-                       
-                        <h5 class="card-title text-danger">{{ex.amount | currency: 'EUR':'symbol' }} </h5>
-                        <p class="card-text">{{ex.description}} </p>
-                        @if(currentExpenseCategory(ex)) {
-                            <h6> {{category_name}}</h6>
-                        }
-                        @else {
-                            <h6>No categories found.</h6>
-                        }
-                    </div>
-                </div>
-            }
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 p-5">
+            <label class="form-label">Filter by category</label>
+            <input class="form-control" placeholder="Type a category..." (keyup)="applyFilter($event)">
         </div>
-    </mat-tab>
 
-    <mat-tab label="Add expense">
-        <div class="px-3">
-          <app-expense-form></app-expense-form>
+        <div class="col-md-9">
+            <mat-tab-group dynamicHeight class="mx-auto p-5" style="width: 1000px; " >
+                <mat-tab label="Expenses list" >
+                    <div  class="p-3" >
+                        @for (ex of filteredExpenses; track $index) {
+                            <div class="card mb-3" >
+                                <div class="card-header d-flex justify-content-between">
+                                    <div>{{ex.date | date }}</div>
+                                    <div class="dropdown">
+                                        <button class="btn p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <mat-icon aria-hidden="false" aria-label="More Horiz" fontIcon="more_horiz"></mat-icon>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                        <li><button class="dropdown-item btn border-0" (click)="openDialog('0ms', '0ms', ex)">Delete</button></li>
+                                        <li><a class="dropdown-item" (click)="openDialogToEdit('0ms', '0ms', ex)">Edit</a></li>
+                                        </ul>
+                                    </div> 
+                                </div>
+                                <div class="card-body">
+                                
+                                    <h5 class="card-title text-danger">{{ex.amount | currency: 'EUR':'symbol' }} </h5>
+                                    <p class="card-text">{{ex.description}} </p>
+                                    @if(currentExpenseCategory(ex)) {
+                                        <h6> {{category_name}}</h6>
+                                    }
+                                    @else {
+                                        <h6>No categories found.</h6>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Add expense">
+                    <div class="px-3">
+                    <app-expense-form></app-expense-form>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
         </div>
-      </mat-tab>
-</mat-tab-group>
+    </div>
+</div>
     
