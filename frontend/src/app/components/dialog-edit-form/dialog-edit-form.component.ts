@@ -3,7 +3,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogActions,
   MatDialogClose,
   MatDialogContent,
   MatDialogRef,
@@ -22,7 +21,6 @@ import { IncomeFormComponent } from "../income-form/income-form.component";
     MatButtonModule,
     MatDialogTitle,
     MatDialogContent,
-    MatDialogActions,
     MatDialogClose,
     ExpenseFormComponent,
     IncomeFormComponent

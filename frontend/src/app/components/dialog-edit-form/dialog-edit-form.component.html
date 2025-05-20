@@ -1,14 +1,16 @@
 
-<div class="card-header d-flex justify-content-between">
-    <h2 mat-dialog-title>Edit transaction</h2>
-    <button mat-dialog-close type="button" class="btn-close border-0 mt-4 mx-4" aria-label="Close"></button>
+<div style="background-color: var(--bs-indigo-100);">
+    <div class="card-header d-flex justify-content-between" >
+        <h2 mat-dialog-title>Edit transaction</h2>
+        <button mat-dialog-close type="button" class="btn-close border-0 mt-4 mx-4" aria-label="Close"></button>
+    </div>
+    <mat-dialog-content  >
+        @if(transactionToEdit === true) {
+            <app-expense-form [index]="data.id"></app-expense-form>
+        }
+        @else if(transactionToEdit === false) {
+            <app-income-form [index]="data.id"></app-income-form>
+        }
+        @else {Nothing to edit}
+    </mat-dialog-content>
 </div>
-<mat-dialog-content >
-    @if(transactionToEdit === true) {
-        <app-expense-form [index]="data.id"></app-expense-form>
-    }
-    @else if(transactionToEdit === false) {
-        <app-income-form [index]="data.id"></app-income-form>
-    }
-    @else {Nothing to edit}
-</mat-dialog-content>
