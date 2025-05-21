@@ -1,7 +1,7 @@
 Language: [ENG](#moneyflow-1) | [PL](#moneyflow)
 
 # MoneyFlow
-Aplikacja webowa umożliwiająca zarządzanie swoimi pieniędzmi.
+Aplikacja webowa służąca do zarządzania przychodami i wydatkami, umożliwiająca ich śledzenie za pomocą wykresów oraz widoku kalendarza. 
 
 ## Technologie
 <div >
@@ -13,13 +13,17 @@ Aplikacja webowa umożliwiająca zarządzanie swoimi pieniędzmi.
 	
 </div>
 
+## Plany rozwoju projektu
+- Wprowadzenie możliwość określenia budżetu, którego użytkownik powinien się trzymać.
+- Dodanie opcji oznaczania transakcji jako: rocznych, miesięcznych, tygodniowych w celu ich automatycznego powtarzania.
+
 ## Inspiracje
 - [MoneyManager](https://www.realbyteapps.com/) - aplikacja pozwalająca na monitorowanie wydatków oraz przychodów.
 - [Fast Budget](https://fastbudget.app/) - osobista aplikacja do zarządzania finansami, która umożliwia śledzenie wydatków oraz zarządzanie budżetem.
   
 ***
 # MoneyFlow
-Web application that allows you to manage your money.
+A web application for managing income and expenses, allowing users to track them through graphs and a calendar view.
 
 ## Tech stack
 <div >
@@ -29,6 +33,10 @@ Web application that allows you to manage your money.
 	 <code><img width="45" src="./assets/material.svg" alt="Angular Material" title="Angular Material"/></code>
   	<code><img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/bootstrap.png" alt="Bootstrap" title="Bootstrap"/></code>
 </div>
+
+## Plans for development
+- Adding the ability to set a personal budget that users are encouraged to follow.
+- Enabling transactions to be marked as recurring (yearly, monthly or weekly) to automate the process.
 
 ## Inspirations
 
