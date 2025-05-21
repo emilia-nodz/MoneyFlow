@@ -27,7 +27,7 @@ export class ExpenseService {
         console.error('Error getting expense:', error);
         return throwError(() => new Error('Error getting expenses'));
       })
-    );;
+    );
   }
 
   insertExpense(expense: Expense): Observable<Expense> {

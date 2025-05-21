@@ -1,0 +1,25 @@
+.demo-inline-calendar-card {
+    width: 500px;
+}
+  
+  ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    border: 1px solid var(--bs-purple-200) !important;
+    background-color: var(--bs-indigo-100);
+  }
+  
+  ::ng-deep .mat-calendar-body-selected {
+    background-color:  var(--bs-purple-500) !important;
+  }
+
+  ::ng-deep .mat-calendar-body-cell-content {
+    font-size: 16px;
+  }
+  
+  ::ng-deep .mat-calendar-period-button {
+    font-size: 18px !important;
+  }
+  
+  ::ng-deep .mat-calendar-table-header th {
+    font-size: 18px !important;
+    font-weight: bold !important;
+  }
