@@ -8,13 +8,14 @@ import { ExpenseService } from '../../services/expense.service';
 import { Income } from '../../models/income';
 import moment from 'moment';
 import { Expense } from '../../models/expense';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
   providers: [provideNativeDateAdapter()],
-  imports: [MatCardModule, MatDatepickerModule],
+  imports: [MatCardModule, MatDatepickerModule, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })

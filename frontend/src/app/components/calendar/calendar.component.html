@@ -1,20 +1,25 @@
-<div class="container p-5 text-center">
+<div class="container p-5">
     <div class="row justify-content-md-center">
         <mat-card class="demo-inline-calendar-card">
             <mat-calendar [(selected)]="selected" (click)="getTransactionByDate()"></mat-calendar>
         </mat-card>
     </div>
     <div class="row p-5">
-        <h5>Your transactions:</h5>
-        @if(incomesLength !== 0) {
+        <div class="col-md-6">
+            @if(incomesLength !== 0) {
             @for(income of incomesOnDate; track $index) {
-                <h4 class="text-success">+{{income.amount}}</h4>
+                <h4 class="text-success">+ {{income.amount | currency:'EUR'}}</h4>
+                <p>{{income.description}}</p>
             }
-        } 
+        } </div>
+        <div class="col-md-6">
         @if(expensesLength !== 0) {
             @for(expense of expensesOnDate; track $index) {
-                <h4 class="text-danger">-{{expense.amount}}</h4>
+                <h4 class="text-danger">- {{expense.amount | currency:'EUR'}}</h4>
+                <p>{{expense.description}}</p>
+
             }
         } 
+    </div>
     </div>
 </div>
