@@ -1,5 +1,5 @@
 .demo-inline-calendar-card {
-    width: 500px;
+    width: 700px;
 }
   
   ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
@@ -12,14 +12,14 @@
   }
 
   ::ng-deep .mat-calendar-body-cell-content {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   ::ng-deep .mat-calendar-period-button {
-    font-size: 18px !important;
+    font-size: 20px !important;
   }
   
   ::ng-deep .mat-calendar-table-header th {
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: bold !important;
   }

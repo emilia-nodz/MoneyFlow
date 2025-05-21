@@ -42,7 +42,7 @@ export class CalendarComponent {
 
   getTransactionByDate(): void {
     let selectedDate = this.selected();
-    
+
     this.incomesOnDate = this.incomes.filter(income => moment(income.date).isSame(selectedDate, 'day'));
     this.incomesLength = this.incomesOnDate.length;
 
