@@ -1,37 +1,43 @@
 <div class="container">
+  <h1 class="mt-3"> Statistics  </h1>
     <div class="container">
-        <div class="row">
+        <div class="row mt-3">
+          <div class="col-3">
+            <div class="p-3" >   
+              <h3>Current balance: </h3> 
+              <div class="card border-0" style="background-color: var(--bs-gray-300);">
+                <div class="card-body" >
+                  <h3 class="card-title ">
+                    <div class="text-success">  {{totalIncomes |  currency:'EUR'}}</div>
+                    <div class="text-danger">- {{totalExpenses |  currency:'EUR'}}</div>
+                    <div style="color: var(--bs-blue-400);">= {{balance |  currency:'EUR'}}</div>
+                  </h3>
+                </div>
+              </div>    
+            </div>
+          </div>
             <div class="col-6">
               <div class="p-3">
-                <h2>
-                    BarChart
-                </h2>
                 <canvas id="barChart"></canvas>
               </div>
             </div>
-            <div class="col-6">
-              <div class="p-3">
-                <h2>
-                    PieChart
-                </h2>
-                <canvas id="pieChart"></canvas>
+            <div class="col-3">
+              <div class="p-3 chart-container" style="height: 300px; width: 100%">
+                <canvas id="pieChart" width="800" height="400"></canvas>
               </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-6">
-              <div class="p-3">
-                <h2>
-                PieChart By categories
-            </h2>
-            <canvas id="categoryPieChart"></canvas></div>
+        <div class="row mt-3 ">
+          <div class="col-6">
+            <div class="p-3 chart-container" style="height: 450px; width: 100%">
+              <h3>Sources of income</h3>
+              <canvas id="sourcePieChart"></canvas>
             </div>
+          </div>
             <div class="col-6">
-              <div class="p-3">
-                <h2>
-                    PieChart By sources
-                </h2>
-                <canvas id="sourcePieChart"></canvas>
+              <div class="p-3 chart-container" style="height: 450px; width: 100%">
+                <h3>Categories</h3>
+                <canvas id="categoryPieChart"></canvas>
               </div>
             </div>
         </div>

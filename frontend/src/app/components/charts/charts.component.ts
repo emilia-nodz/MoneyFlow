@@ -5,17 +5,21 @@ import { ExpenseService } from '../../services/expense.service';
 import { Income } from '../../models/income';
 import { Expense } from '../../models/expense';
 import { forkJoin } from 'rxjs';
+import { CommonModule } from '@angular/common';
 Chart.register(...registerables)
 
 @Component({
   selector: 'app-charts',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './charts.component.html',
   styleUrl: './charts.component.css'
 })
 export class ChartsComponent {
   incomes: Income[] = [];
   expenses: Expense[] = [];
+  balance: number = 0;
+  totalIncomes: number = 0;
+  totalExpenses: number = 0;
 
   constructor(
     private incomeService: IncomeService,
@@ -51,10 +55,14 @@ export class ChartsComponent {
     }, 0);
   }
 
+  initializeValues(): void {
+    this.totalIncomes = this.calculateTotal(this.incomes);
+    this.totalExpenses = this.calculateTotal(this.expenses);
+    this.balance = this.totalIncomes - this.totalExpenses;
+  }
+
   renderBarChart(): void {
-    const totalIncomes = this.calculateTotal(this.incomes);
-    const totalExpenses = this.calculateTotal(this.expenses);
-    const balance = totalIncomes - totalExpenses;
+    this.initializeValues();
 
     const chart = new Chart("barChart", {
       type: 'bar',
@@ -62,37 +70,38 @@ export class ChartsComponent {
         labels: ['Incomes', 'Expenses', 'Balance'],
         datasets: [{
           label: 'Amount',
-          data: [totalIncomes, totalExpenses, balance],
+          data: [this.totalIncomes, this.totalExpenses, this.balance],
           backgroundColor: [
-            '#198754',  
-            '#DC3545',
-            '#0DCAF0'
+            '#479F76',  
+            '#E35D6A',
+            '#3D8BFD'
           ]
         }
-      ]
+      ]},
+      options: {
+        responsive: true
       }
     });
   }
 
-  renderPieChart(): void {
-    const totalIncomes = this.calculateTotal(this.incomes);
-    const totalExpenses = this.calculateTotal(this.expenses);
-    const balance = totalIncomes - totalExpenses;
-
+  renderPieChart(): void {    
     const chart = new Chart("pieChart", {
       type: 'pie',
       data: {
         labels: ['Incomes', 'Expenses', 'Balance'],
         datasets: [{
           label: 'Amount',
-          data: [totalIncomes, totalExpenses, balance],
+          data: [this.totalIncomes, this.totalExpenses, this.balance],
           backgroundColor: [
-            '#198754',  
-            '#DC3545',
-            '#0DCAF0'
+            '#479F76',  
+            '#E35D6A',
+            '#3D8BFD'
           ]
         }
-      ]
+      ]},
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // Crucial for custom sizing
       }
     });
   }
@@ -147,7 +156,7 @@ export class ChartsComponent {
   
     const labels = Array.from(sourceMap.keys());
     const data = Array.from(sourceMap.values());
-    const backgroundColors = this.generateCategoryColors(labels.length);
+    const backgroundColors = this.generateSourceColors(labels.length);
   
     const chart = new Chart('sourcePieChart', {
       type: 'pie',
@@ -163,15 +172,23 @@ export class ChartsComponent {
     });
   }
 
-  private generateCategoryColors(count: number): string[] {
+  generateCategoryColors(count: number): string[] {
     const colors = [
-      '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', 
-      '#FF9F40', '#8AC24A', '#FF5722', '#607D8B', '#E91E63',
-      '#3F51B5', '#009688', '#795548', '#9C27B0', '#CDDC39'
+      '#9EC5FE', '#A98EDA', '#E685B5', '#EA868F', '#FEB272', 
+      '#212529', '#6610F2', '#6F42C1', '#EFADCE', '#DC3545',
+      '#FD7E14', '#FFC107'
     ];
     
     return Array.from({length: count}, (_, i) => colors[i % colors.length]);
   }
 
-  
+  generateSourceColors(count: number): string[] {
+    const colors = [
+      '#BAC981', '#75B798', '#79DFC1', '#6EDFF6','#198754', '#20C997', '#0DCAF0', 
+      '#0F5132', '#13795B','#087990' 
+    ];
+    
+    return Array.from({length: count}, (_, i) => colors[i % colors.length]);
+  }
+
 }
